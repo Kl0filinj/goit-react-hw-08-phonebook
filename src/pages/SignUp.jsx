@@ -7,7 +7,9 @@ import {
   Input,
   Button,
 } from '@chakra-ui/react';
+import { registerUser } from 'redux/auth/auth-operations';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 // import { Field, Form, Formik, ErrorMessage } from 'formik';
 // import * as Yup from 'yup';
@@ -17,8 +19,11 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+
   const onRegisterSubmit = evt => {
     evt.preventDefault();
+    dispatch(registerUser({ name: userName, email, password }));
     console.log(
       'userName: ',
       userName,
@@ -60,7 +65,9 @@ const SignUp = () => {
             value={password}
             onChange={evt => setPassword(evt.target.value)}
           />
-          <FormHelperText>We'll never share your password.</FormHelperText>
+          <FormHelperText>
+            Password must contains min 7 charecters
+          </FormHelperText>
         </FormControl>
 
         <Button colorScheme="teal" variant="ghost" type="submit">

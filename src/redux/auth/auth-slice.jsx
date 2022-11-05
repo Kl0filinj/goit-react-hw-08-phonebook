@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { registerUser, logInUser, logOutUser } from './auth-operations';
 // import { persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';
 
@@ -9,10 +10,30 @@ const authState = {
   isRefreshing: false,
 };
 
+// const handlePending = state => {
+//   state.isRefreshing = true;
+// };
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState: authState,
-  reducers: {},
+  extraReducers: {
+    [registerUser.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logInUser.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [logOutUser.fulfilled](state) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
+  },
 });
 
 // const persistConfig = {

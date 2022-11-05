@@ -8,32 +8,37 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { logInUser } from 'redux/auth/auth-operations';
+import { useDispatch } from 'react-redux';
 
 // import { Field, Form, Formik, ErrorMessage } from 'formik';
 // import * as Yup from 'yup';
 
 const SignIn = () => {
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onRegisterSubmit = evt => {
+  const dispatch = useDispatch();
+
+  const onLogInSubmit = evt => {
     evt.preventDefault();
-    console.log('userName: ', userName, 'password: ', password);
-    setUserName('');
+    dispatch(logInUser({ email, password }));
+    console.log('email: ', email, 'password: ', password);
+    setEmail('');
     setPassword('');
   };
 
   return (
     <Center as="main" bg="green.400" h="calc(100vh - 90px)" color="white">
-      <form autoComplete="false" onSubmit={onRegisterSubmit}>
+      <form autoComplete="false" onSubmit={onLogInSubmit}>
         <FormControl isRequired>
-          <FormLabel>User Name</FormLabel>
+          <FormLabel>Email</FormLabel>
           <Input
-            type="text"
-            value={userName}
-            onChange={evt => setUserName(evt.target.value)}
+            type="email"
+            value={email}
+            onChange={evt => setEmail(evt.target.value)}
           />
-          <FormHelperText>For example: Adrian, Jacob Mercer</FormHelperText>
+          <FormHelperText>For example: sadadada@mail.com</FormHelperText>
         </FormControl>
         <FormControl isRequired>
           <FormLabel>Password</FormLabel>
