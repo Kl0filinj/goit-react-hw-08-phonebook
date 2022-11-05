@@ -9,12 +9,29 @@ import {
   Button,
 } from '@chakra-ui/react';
 import React from 'react';
+// import {
+//   fetchAllContacts,
+//   addContact,
+//     deleteContact,
+// } from 'redux/contacts/contacts-operations';
 // import { useEffect } from 'react';
 import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
 
 const Contacts = () => {
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
+
+  const addContactHandler = evt => {
+    evt.preventDefault();
+    console.log(evt);
+  };
+  //   const dispatch = useDispatch();
+
+  //   useEffect(() => {
+  //     console.log('Fetch All');
+  //     dispatch(fetchAllContacts());
+  //   }, [dispatch]);
 
   return (
     <Container
@@ -35,7 +52,7 @@ const Contacts = () => {
             <Heading as="h2" textAlign="center">
               Add new contact
             </Heading>
-            <form autoComplete="false" onSubmit={e => console.log(e)}>
+            <form autoComplete="false" onSubmit={addContactHandler}>
               <FormControl isRequired>
                 <FormLabel>Number</FormLabel>
                 <Input
@@ -56,7 +73,7 @@ const Contacts = () => {
               </FormControl>
 
               <Button colorScheme="teal" variant="ghost" type="submit">
-                Enter
+                Add
               </Button>
             </form>
           </Box>
