@@ -6,6 +6,7 @@ import SignUp from 'pages/SignUp';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshUser } from 'redux/auth/auth-operations';
+import Contacts from 'pages/Contacts';
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,6 +19,7 @@ export const App = () => {
         <Route index element={<Home />} />
         <Route path="login" element={<SignIn />} />
         <Route path="registration" element={<SignUp />} />
+        <Route path="contacts" element={<Contacts />} />
         {/* <Route path="movies" element={<Movies />} />
         <Route path="movies/:movieId" element={<MovieDetails />}>
           <Route path="cast" element={<Cast />} />
