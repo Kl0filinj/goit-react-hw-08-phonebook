@@ -12,13 +12,12 @@ import React from 'react';
 import {
   fetchAllContacts,
   addContact,
-  deleteContact,
+  // deleteContact,
 } from 'redux/contacts/contacts-operations';
 import { selectContacts } from 'redux/contacts/contacts-selectors';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { number } from 'yup';
 
 const Contacts = () => {
   const [phone, setPhone] = useState('');
@@ -46,7 +45,9 @@ const Contacts = () => {
       maxW="full"
       color="white"
     >
-      <Heading textAlign="center">Let`s create new contacts together !</Heading>
+      <Heading textAlign="center" fontFamily="fonts.mono">
+        Let`s create new contacts together !
+      </Heading>
       <Container
         maxW="container.xl"
         display="flex"
