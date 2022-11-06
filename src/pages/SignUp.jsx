@@ -38,7 +38,7 @@ const SignUp = () => {
   };
 
   return (
-    <Center as="main" bg="green.400" h="calc(100vh - 90px)" color="white">
+    <Center as="main" bg="blue.800" maxW="full" color="white">
       <form autoComplete="false" onSubmit={onRegisterSubmit}>
         <FormControl isRequired>
           <FormLabel>User Name</FormLabel>

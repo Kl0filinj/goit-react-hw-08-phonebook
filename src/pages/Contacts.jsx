@@ -7,12 +7,14 @@ import {
   FormHelperText,
   Input,
   Button,
+  Text,
 } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import React from 'react';
 import {
   fetchAllContacts,
   addContact,
-  // deleteContact,
+  deleteContact,
 } from 'redux/contacts/contacts-operations';
 import { selectContacts } from 'redux/contacts/contacts-selectors';
 import { useEffect } from 'react';
@@ -22,9 +24,15 @@ import { useDispatch, useSelector } from 'react-redux';
 const Contacts = () => {
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
+  const [filter, setFilter] = useState('');
 
   const dispatch = useDispatch();
   const contactsList = useSelector(selectContacts);
+
+  const visibleContacts = contactsList.filter(item =>
+    item.name.toLowerCase().includes(filter)
+  );
+
   const addContactHandler = evt => {
     evt.preventDefault();
     dispatch(addContact({ name, number: phone }));
@@ -38,14 +46,14 @@ const Contacts = () => {
   }, [dispatch]);
 
   return (
-    <Container
-      as="main"
-      bg="green.400"
-      h="calc(100vh - 90px)"
-      maxW="full"
-      color="white"
-    >
-      <Heading textAlign="center" fontFamily="fonts.mono">
+    <Container as="main" bg="blue.800" maxW="full" color="white">
+      <Heading
+        textAlign="center"
+        pt="7"
+        pb="20"
+        fontFamily="heading"
+        fontWeight="medium"
+      >
         Let`s create new contacts together !
       </Heading>
       <Container
@@ -53,9 +61,21 @@ const Contacts = () => {
         display="flex"
         justifyContent="space-between"
       >
-        <Box flexGrow="1">
-          <Box w="md" minH="3xs" borderRadius="lg" bg="green.900">
-            <Heading as="h2" textAlign="center">
+        <Box flexGrow="1" display="flex" justifyContent="center">
+          <Box
+            w="md"
+            h="fit-content"
+            borderRadius="lg"
+            bg="gray.700"
+            paddingY="5"
+            paddingX="7"
+          >
+            <Heading
+              as="h2"
+              textAlign="center"
+              fontFamily="heading"
+              fontWeight="medium"
+            >
               Add new contact
             </Heading>
             <form autoComplete="false" onSubmit={addContactHandler}>
@@ -78,24 +98,67 @@ const Contacts = () => {
                 <FormHelperText>For example: Amalia Rorshekh</FormHelperText>
               </FormControl>
 
-              <Button colorScheme="teal" variant="ghost" type="submit">
-                Add
-              </Button>
+              <Box textAlign="center" marginY="5">
+                <Button colorScheme="blue" variant="solid" type="submit">
+                  Add Contatc
+                </Button>
+              </Box>
             </form>
           </Box>
         </Box>
-        <Box flexGrow="1">
-          <Box w="lg" minH="7.3rem" borderRadius="lg" bg="green.900">
-            <Heading as="h2" textAlign="center">
+        <Box flexGrow="1" display="flex" justifyContent="center">
+          <Box
+            w="lg"
+            h="fit-content"
+            borderRadius="lg"
+            bg="gray.700"
+            paddingY="5"
+            paddingX="7"
+          >
+            <Heading
+              as="h2"
+              textAlign="center"
+              fontFamily="heading"
+              fontWeight="medium"
+            >
               Contact List
             </Heading>
+            <Input
+              type="text"
+              value={filter}
+              onChange={evt => setFilter(evt.target.value)}
+            />
             <ul>
-              {contactsList.map(({ name, number, id }) => (
-                <li key={id}>
-                  <p>
+              {visibleContacts.map(({ name, number, id }) => (
+                <Box
+                  as="li"
+                  key={id}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="baseline"
+                  mt="5"
+                >
+                  <Text
+                    fontSize="2xl"
+                    fontWeight="medium"
+                    letterSpacing="wide"
+                    display="flex"
+                    flexWrap="wrap"
+                  >
                     {name}: {number}
-                  </p>
-                </li>
+                  </Text>
+                  <Box>
+                    <Button
+                      variant="outline"
+                      onClick={() => dispatch(deleteContact(id))}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                    <Button variant="outline" ml="1.5">
+                      <EditIcon />
+                    </Button>
+                  </Box>
+                </Box>
               ))}
             </ul>
           </Box>
