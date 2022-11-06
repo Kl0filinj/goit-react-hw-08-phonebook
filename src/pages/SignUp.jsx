@@ -6,6 +6,8 @@ import {
   FormHelperText,
   Input,
   Button,
+  Heading,
+  Box,
 } from '@chakra-ui/react';
 import { registerUser } from 'redux/auth/auth-operations';
 import { useState } from 'react';
@@ -38,7 +40,17 @@ const SignUp = () => {
   };
 
   return (
-    <Center as="main" bg="blue.800" maxW="full" color="white">
+    <Center
+      as="main"
+      bg="blue.800"
+      color="white"
+      py="16"
+      display="flex"
+      flexDirection="column"
+    >
+      <Heading as="h1" mb="6">
+        Let`s create new account !
+      </Heading>
       <form autoComplete="false" onSubmit={onRegisterSubmit}>
         <FormControl isRequired>
           <FormLabel>User Name</FormLabel>
@@ -69,10 +81,11 @@ const SignUp = () => {
             Password must contains min 7 charecters
           </FormHelperText>
         </FormControl>
-
-        <Button colorScheme="teal" variant="ghost" type="submit">
-          Register
-        </Button>
+        <Box textAlign="center" marginY="5">
+          <Button colorScheme="blue" variant="solid" type="submit">
+            Register
+          </Button>
+        </Box>
       </form>
     </Center>
   );

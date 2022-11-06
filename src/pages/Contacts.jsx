@@ -9,7 +9,8 @@ import {
   Button,
   Text,
 } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import ChangeModal from 'components/Modal';
+import { DeleteIcon } from '@chakra-ui/icons';
 import React from 'react';
 import {
   fetchAllContacts,
@@ -72,6 +73,7 @@ const Contacts = () => {
           >
             <Heading
               as="h2"
+              mb="6"
               textAlign="center"
               fontFamily="heading"
               fontWeight="medium"
@@ -117,6 +119,7 @@ const Contacts = () => {
           >
             <Heading
               as="h2"
+              mb="6"
               textAlign="center"
               fontFamily="heading"
               fontWeight="medium"
@@ -154,9 +157,17 @@ const Contacts = () => {
                     >
                       <DeleteIcon />
                     </Button>
-                    <Button variant="outline" ml="1.5">
+                    <ChangeModal contactId={id} />
+                    {/* <Button
+                      variant="outline"
+                      ml="1.5"
+                      // onClick={() =>
+                      //   dispatch(updateContact({ name, number, id })
+                      //   )
+                      // }
+                    >
                       <EditIcon />
-                    </Button>
+                    </Button> */}
                   </Box>
                 </Box>
               ))}

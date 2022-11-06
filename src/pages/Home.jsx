@@ -1,10 +1,12 @@
 import React from 'react';
-import { Center } from '@chakra-ui/react';
+import { Center, Heading } from '@chakra-ui/react';
 
 const Home = () => {
   return (
-    <Center as="main" bg="blue.800" color="white">
-      Welcome, back to Contact Book !
+    <Center as="main" bg="blue.800" color="white" py="16">
+      <Heading as="h1" fontFamily="heading">
+        Welcome back to Contact Book !
+      </Heading>
     </Center>
   );
 };

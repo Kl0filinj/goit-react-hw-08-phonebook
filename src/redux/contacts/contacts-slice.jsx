@@ -3,6 +3,7 @@ import {
   fetchAllContacts,
   addContact,
   deleteContact,
+  updateContact,
 } from './contacts-operations';
 
 const contactsState = {
@@ -14,7 +15,7 @@ const contactsState = {
 };
 
 const handlePending = state => {
-  console.log(state);
+  console.log('It`s from state ', state);
   state.contacts.isLoading = true;
 };
 
@@ -53,6 +54,19 @@ export const contactsSlice = createSlice({
       state.contacts.items.splice(index, 1);
     },
     [deleteContact.rejected]: handleRejected,
+    [updateContact.pending]: handlePending,
+    [updateContact.fulfilled](state, action) {
+      normalizeState(state);
+      const index = state.contacts.items.findIndex(
+        task => task.id === action.payload.id
+      );
+      console.log(action.payload);
+      const id = action.payload.id;
+      const name = action.payload.name;
+      const number = action.payload.number;
+      state.contacts.items.splice(index, 1, { id, name, number });
+    },
+    [updateContact.rejected]: handleRejected,
   },
 });
 

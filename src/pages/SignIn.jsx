@@ -6,6 +6,8 @@ import {
   FormHelperText,
   Input,
   Button,
+  Heading,
+  Box,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { logInUser } from 'redux/auth/auth-operations';
@@ -29,7 +31,17 @@ const SignIn = () => {
   };
 
   return (
-    <Center as="main" bg="blue.800" maxW="full" color="white">
+    <Center
+      as="main"
+      bg="blue.800"
+      color="white"
+      py="16"
+      display="flex"
+      flexDirection="column"
+    >
+      <Heading as="h1" mb="6">
+        You can enter here
+      </Heading>
       <form autoComplete="false" onSubmit={onLogInSubmit}>
         <FormControl isRequired>
           <FormLabel>Email</FormLabel>
@@ -50,9 +62,11 @@ const SignIn = () => {
           <FormHelperText>We'll never share your password.</FormHelperText>
         </FormControl>
 
-        <Button colorScheme="teal" variant="ghost" type="submit">
-          Enter
-        </Button>
+        <Box textAlign="center" marginY="5">
+          <Button colorScheme="blue" variant="solid" type="submit">
+            Enter
+          </Button>
+        </Box>
       </form>
     </Center>
   );
