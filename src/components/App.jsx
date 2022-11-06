@@ -9,6 +9,9 @@ import { refreshUser } from 'redux/auth/auth-operations';
 import Contacts from 'pages/Contacts';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -16,39 +19,49 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <Routes>
-      <Route path="goit-react-hw-08-phonebook/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route
-          path="login"
-          element={
-            <PublicRoute
-              redirectTo="/goit-react-hw-08-phonebook/contacts"
-              component={<SignIn />}
-            />
-          }
-        />
-        <Route
-          path="registration"
-          element={
-            <PublicRoute
-              redirectTo="/goit-react-hw-08-phonebook/contacts"
-              component={<SignUp />}
-            />
-          }
-        />
-        <Route
-          path="contacts"
-          element={
-            <PrivateRoute
-              redirectTo="/goit-react-hw-08-phonebook/registration"
-              component={<Contacts />}
-            />
-          }
-        />
+    <>
+      <Routes>
+        <Route path="goit-react-hw-08-phonebook/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="login"
+            element={
+              <PublicRoute
+                redirectTo="/goit-react-hw-08-phonebook/contacts"
+                component={<SignIn />}
+              />
+            }
+          />
+          <Route
+            path="registration"
+            element={
+              <PublicRoute
+                redirectTo="/goit-react-hw-08-phonebook/contacts"
+                component={<SignUp />}
+              />
+            }
+          />
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute
+                redirectTo="/goit-react-hw-08-phonebook/registration"
+                component={<Contacts />}
+              />
+            }
+          />
 
-        <Route path="*" element={<h1>Page Not Found 🥶</h1>} />
-      </Route>
-    </Routes>
+          <Route path="*" element={<h1>Page Not Found 🥶</h1>} />
+        </Route>
+      </Routes>
+      <ToastContainer
+        theme="colored"
+        position="top-right"
+        autoClose={3000}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+      />
+    </>
   );
 };

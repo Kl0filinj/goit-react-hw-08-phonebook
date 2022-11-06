@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import ChangeModal from 'components/Modal';
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import React from 'react';
 import {
   fetchAllContacts,
@@ -86,6 +86,8 @@ const Contacts = () => {
                 <Input
                   type="tel"
                   value={phone}
+                  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                   onChange={evt => setPhone(evt.target.value)}
                 />
                 <FormHelperText>For example: +380 95 122 0366</FormHelperText>
@@ -95,6 +97,8 @@ const Contacts = () => {
                 <Input
                   type="text"
                   value={name}
+                  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer"
                   onChange={evt => setName(evt.target.value)}
                 />
                 <FormHelperText>For example: Amalia Rorshekh</FormHelperText>
@@ -126,52 +130,59 @@ const Contacts = () => {
             >
               Contact List
             </Heading>
+            <Text
+              textAlign="center"
+              fontSize="lg"
+              fontWeight="light"
+              color="gray"
+            >
+              Search by Name
+            </Text>
             <Input
               type="text"
               value={filter}
               onChange={evt => setFilter(evt.target.value)}
             />
-            <ul>
-              {visibleContacts.map(({ name, number, id }) => (
-                <Box
-                  as="li"
-                  key={id}
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="baseline"
-                  mt="5"
-                >
-                  <Text
-                    fontSize="2xl"
-                    fontWeight="medium"
-                    letterSpacing="wide"
+            {visibleContacts.length === 0 ? (
+              <Box mt="5" display="flex" alignItems="center">
+                <Text fontSize="2xl" fontWeight="medium" letterSpacing="wide">
+                  List of conatcts is empty
+                </Text>
+                <WarningTwoIcon w="6" h="6" ml="4" color="orange.400" />
+              </Box>
+            ) : (
+              <ul>
+                {visibleContacts.map(({ name, number, id }) => (
+                  <Box
+                    as="li"
+                    key={id}
                     display="flex"
-                    flexWrap="wrap"
+                    justifyContent="space-between"
+                    alignItems="baseline"
+                    mt="5"
                   >
-                    {name}: {number}
-                  </Text>
-                  <Box>
-                    <Button
-                      variant="outline"
-                      onClick={() => dispatch(deleteContact(id))}
+                    <Text
+                      fontSize="2xl"
+                      fontWeight="medium"
+                      letterSpacing="wide"
+                      display="flex"
+                      flexWrap="wrap"
                     >
-                      <DeleteIcon />
-                    </Button>
-                    <ChangeModal contactId={id} />
-                    {/* <Button
-                      variant="outline"
-                      ml="1.5"
-                      // onClick={() =>
-                      //   dispatch(updateContact({ name, number, id })
-                      //   )
-                      // }
-                    >
-                      <EditIcon />
-                    </Button> */}
+                      {name}: {number}
+                    </Text>
+                    <Box>
+                      <Button
+                        variant="outline"
+                        onClick={() => dispatch(deleteContact(id))}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                      <ChangeModal contactId={id} userData={{ name, number }} />
+                    </Box>
                   </Box>
-                </Box>
-              ))}
-            </ul>
+                ))}
+              </ul>
+            )}
           </Box>
         </Box>
       </Container>

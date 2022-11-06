@@ -18,11 +18,10 @@ import { EditIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const ChangeModal = ({ contactId }) => {
+const ChangeModal = ({ contactId, userData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [newName, setNewName] = useState('');
-  const [newNumber, setNewNumber] = useState('');
+  const [newName, setNewName] = useState(() => userData.name);
+  const [newNumber, setNewNumber] = useState(() => userData.number);
 
   const dispatch = useDispatch();
 
@@ -51,6 +50,8 @@ const ChangeModal = ({ contactId }) => {
                 <Input
                   type="tel"
                   value={newNumber}
+                  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                   onChange={evt => setNewNumber(evt.target.value)}
                 />
                 <FormHelperText>For example: +380 95 122 0366</FormHelperText>
@@ -60,6 +61,8 @@ const ChangeModal = ({ contactId }) => {
                 <Input
                   type="text"
                   value={newName}
+                  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer"
                   onChange={evt => setNewName(evt.target.value)}
                 />
                 <FormHelperText>For example: Amalia Rorshekh</FormHelperText>
