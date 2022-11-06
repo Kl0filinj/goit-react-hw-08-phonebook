@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import {
-//   fetchAllContacts,
-//   addContact,
-//   deleteContact,
-// } from './contacts-operations';
+import {
+  fetchAllContacts,
+  addContact,
+  // deleteContact,
+} from './contacts-operations';
 
 const contactsState = {
   contacts: {
@@ -13,37 +13,37 @@ const contactsState = {
   },
 };
 
-// const handlePending = state => {
-//   console.log(state);
-//   state.contacts.isLoading = true;
-// };
+const handlePending = state => {
+  console.log(state);
+  state.contacts.isLoading = true;
+};
 
-// const handleRejected = (state, action) => {
-//   state.contacts.isLoading = false;
-//   state.contacts.error = action.payload;
-// };
+const handleRejected = (state, action) => {
+  state.contacts.isLoading = false;
+  state.contacts.error = action.payload;
+};
 
-// const normalizeState = state => {
-//   state.contacts.isLoading = false;
-//   state.contacts.error = null;
-// };
+const normalizeState = state => {
+  state.contacts.isLoading = false;
+  state.contacts.error = null;
+};
 
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsState,
   extraReducers: {
-    // [fetchAllContacts.pending]: handlePending,
-    // [fetchAllContacts.fulfilled](state, action) {
-    //   normalizeState(state);
-    //   state.contacts.items = action.payload;
-    // },
-    // [fetchAllContacts.rejected]: handleRejected,
-    // [addContact.pending]: handlePending,
-    // [addContact.fulfilled](state, action) {
-    //   normalizeState(state);
-    //   state.contacts.items.push(action.payload);
-    // },
-    // [addContact.rejected]: handleRejected,
+    [fetchAllContacts.pending]: handlePending,
+    [fetchAllContacts.fulfilled](state, action) {
+      normalizeState(state);
+      state.contacts.items = action.payload;
+    },
+    [fetchAllContacts.rejected]: handleRejected,
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled](state, action) {
+      normalizeState(state);
+      state.contacts.items.push(action.payload);
+    },
+    [addContact.rejected]: handleRejected,
     // [deleteContact.pending]: handlePending,
     // [deleteContact.fulfilled](state, action) {
     //   normalizeState(state);

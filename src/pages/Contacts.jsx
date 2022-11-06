@@ -9,29 +9,34 @@ import {
   Button,
 } from '@chakra-ui/react';
 import React from 'react';
-// import {
-//   fetchAllContacts,
-//   addContact,
-//     deleteContact,
-// } from 'redux/contacts/contacts-operations';
-// import { useEffect } from 'react';
+import {
+  fetchAllContacts,
+  addContact,
+  deleteContact,
+} from 'redux/contacts/contacts-operations';
+import { selectContacts } from 'redux/contacts/contacts-selectors';
+import { useEffect } from 'react';
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { number } from 'yup';
 
 const Contacts = () => {
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
 
+  const dispatch = useDispatch();
+  const contactsList = useSelector(selectContacts);
   const addContactHandler = evt => {
     evt.preventDefault();
-    console.log(evt);
+    dispatch(addContact({ name, number: phone }));
+    setPhone('');
+    setName('');
   };
-  //   const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     console.log('Fetch All');
-  //     dispatch(fetchAllContacts());
-  //   }, [dispatch]);
+  useEffect(() => {
+    console.log('Fetch All');
+    dispatch(fetchAllContacts());
+  }, [dispatch]);
 
   return (
     <Container
@@ -83,6 +88,15 @@ const Contacts = () => {
             <Heading as="h2" textAlign="center">
               Contact List
             </Heading>
+            <ul>
+              {contactsList.map(({ name, number, id }) => (
+                <li key={id}>
+                  <p>
+                    {name}: {number}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </Box>
         </Box>
       </Container>
