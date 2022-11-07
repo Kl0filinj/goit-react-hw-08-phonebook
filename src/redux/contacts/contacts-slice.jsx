@@ -39,13 +39,13 @@ export const contactsSlice = createSlice({
       state.contacts.items = action.payload;
     },
     [fetchAllContacts.rejected]: handleRejected,
-    [addContact.pending]: handlePending,
+    // [addContact.pending]: handlePending,
     [addContact.fulfilled](state, action) {
       normalizeState(state);
       state.contacts.items.push(action.payload);
     },
     [addContact.rejected]: handleRejected,
-    [deleteContact.pending]: handlePending,
+    // [deleteContact.pending]: handlePending,
     [deleteContact.fulfilled](state, action) {
       normalizeState(state);
       const index = state.contacts.items.findIndex(
@@ -54,7 +54,7 @@ export const contactsSlice = createSlice({
       state.contacts.items.splice(index, 1);
     },
     [deleteContact.rejected]: handleRejected,
-    [updateContact.pending]: handlePending,
+    // [updateContact.pending]: handlePending,
     [updateContact.fulfilled](state, action) {
       normalizeState(state);
       const index = state.contacts.items.findIndex(

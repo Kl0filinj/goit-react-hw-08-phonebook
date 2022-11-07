@@ -1,9 +1,10 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { Flex, Spacer, Button, Text, Box, Avatar } from '@chakra-ui/react';
-// import { Header, HeaderLink } from './Layout.styled';
+import { Flex, Spacer, Button, Text, Avatar, Box } from '@chakra-ui/react';
 import { logOutUser } from '../redux/auth/auth-operations';
-import { selectIsLoggedIn, selectUser } from '../redux/auth/auth-selectors';
+import { selectIsLoggedIn, selectUser } from 'redux/auth/auth-selectors';
 import { useDispatch, useSelector } from 'react-redux';
+import { Suspense } from 'react';
+
 const Layout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const user = useSelector(selectUser);
@@ -40,6 +41,7 @@ const Layout = () => {
             </Button>
           </>
         ) : (
+          // <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
             <Avatar
               mr="2"
@@ -68,9 +70,12 @@ const Layout = () => {
               {/* <NavLink to="registration">Sign Out</NavLink> */}
             </Button>
           </Box>
+          // </Box>
         )}
       </Flex>
-      <Outlet />
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
