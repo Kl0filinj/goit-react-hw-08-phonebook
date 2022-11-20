@@ -26,17 +26,9 @@ const SignUp = () => {
   const onRegisterSubmit = evt => {
     evt.preventDefault();
     dispatch(registerUser({ name: userName, email, password }));
-    console.log(
-      'userName: ',
-      userName,
-      'email: ',
-      email,
-      'password: ',
-      password
-    );
-    setUserName('');
-    setEmail('');
-    setPassword('');
+    // setUserName('');
+    // setEmail('');
+    // setPassword('');
   };
 
   return (

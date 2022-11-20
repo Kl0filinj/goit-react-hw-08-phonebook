@@ -25,9 +25,8 @@ const SignIn = () => {
   const onLogInSubmit = evt => {
     evt.preventDefault();
     dispatch(logInUser({ email, password }));
-    console.log('email: ', email, 'password: ', password);
-    setEmail('');
-    setPassword('');
+    // setEmail('');
+    // setPassword('');
   };
 
   return (
