@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   registerUser,
   logInUser,
@@ -7,49 +7,57 @@ import {
 } from './auth-operations';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { IEnterInPayload, IUser } from 'types/authTypes';
 
-const authState = {
+interface IAuthState {
+  user: IUser;
+  token: string | null;
+  isLoggedIn: boolean;
+  isRefreshing: boolean;
+}
+
+const authState: IAuthState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
 
-// const handlePending = state => {
-//   state.isRefreshing = true;
-// };
-
 export const authSlice = createSlice({
   name: 'auth',
   initialState: authState,
   extraReducers: {
-    [registerUser.fulfilled](state, action) {
+    [registerUser.fulfilled.type](
+      state,
+      action: PayloadAction<IEnterInPayload>
+    ) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    [logInUser.fulfilled](state, action) {
+    [logInUser.fulfilled.type](state, action: PayloadAction<IEnterInPayload>) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    [logOutUser.fulfilled](state) {
+    [logOutUser.fulfilled.type](state) {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
     },
-    [refreshUser.pending](state) {
+    [refreshUser.pending.type](state) {
       state.isRefreshing = true;
     },
-    [refreshUser.fulfilled](state, action) {
+    [refreshUser.fulfilled.type](state, action) {
       state.user = action.payload;
       state.isLoggedIn = true;
       state.isRefreshing = false;
     },
-    [refreshUser.rejected](state) {
+    [refreshUser.rejected.type](state) {
       state.isRefreshing = false;
     },
   },
+  reducers: {},
 });
 
 const persistConfig = {

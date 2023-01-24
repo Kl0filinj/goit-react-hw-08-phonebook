@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+// @ts-ignore
 import { contactsReducer } from './contacts/contacts-slice';
 import { authReducer } from './auth/auth-slice';
 import {
@@ -25,3 +26,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -10,15 +10,17 @@ import {
 } from '@chakra-ui/react';
 import { addContact } from 'redux/contacts/contacts-operations';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'redux/hooks';
+import { InputEventType, SubmitFormEventType } from 'types/commonTypes';
+// import { useDispatch } from 'react-redux';
 
-const AddContactSection = () => {
+const AddContactSection: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const addContactHandler = evt => {
+  const addContactHandler = (evt: SubmitFormEventType) => {
     evt.preventDefault();
     dispatch(addContact({ name, number: phone }));
     setPhone('');
@@ -51,7 +53,7 @@ const AddContactSection = () => {
               value={phone}
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              onChange={evt => setPhone(evt.target.value)}
+              onChange={(evt: InputEventType) => setPhone(evt.target.value)}
             />
             <FormHelperText>For example: +380 95 122 0366</FormHelperText>
           </FormControl>
@@ -62,7 +64,7 @@ const AddContactSection = () => {
               value={name}
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer"
-              onChange={evt => setName(evt.target.value)}
+              onChange={(evt: InputEventType) => setName(evt.target.value)}
             />
             <FormHelperText>For example: Amalia Rorshekh</FormHelperText>
           </FormControl>

@@ -4,16 +4,17 @@ import { DeleteIcon, WarningTwoIcon } from '@chakra-ui/icons';
 import { deleteContact } from 'redux/contacts/contacts-operations';
 import { selectContacts } from 'redux/contacts/contacts-selectors';
 import { selectLoadingState } from 'redux/contacts/contacts-selectors';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+// import { useDispatch, useSelector } from 'react-redux';
 
-const ContactListSection = () => {
+const ContactListSection: React.FC = () => {
   const [filter, setFilter] = useState('');
 
-  const dispatch = useDispatch();
-  const contactsList = useSelector(selectContacts);
+  const dispatch = useAppDispatch();
+  const contactsList = useAppSelector(selectContacts);
 
-  const isLoading = useSelector(selectLoadingState);
+  const isLoading = useAppSelector(selectLoadingState);
 
   const visibleContacts = contactsList.filter(item =>
     item.name.toLowerCase().includes(filter)
@@ -43,7 +44,9 @@ const ContactListSection = () => {
         <Input
           type="text"
           value={filter}
-          onChange={evt => setFilter(evt.target.value)}
+          onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+            setFilter(evt.target.value)
+          }
         />
         {visibleContacts.length === 0 ? (
           <Skeleton fadeDuration={2} isLoaded={!isLoading}>
@@ -55,8 +58,6 @@ const ContactListSection = () => {
             </Box>
           </Skeleton>
         ) : (
-          //
-          //   <Skeleton fadeDuration={2} isLoaded={!isLoading}>
           <ul>
             {visibleContacts.map(({ name, number, id }) => (
               <Skeleton fadeDuration={2} isLoaded={!isLoading}>
@@ -90,7 +91,6 @@ const ContactListSection = () => {
               </Skeleton>
             ))}
           </ul>
-          //   </Skeleton>
         )}
       </Box>
     </Box>

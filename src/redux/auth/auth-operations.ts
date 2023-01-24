@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { IEnterData, IEnterDataForRegistration, IEnterInPayload, IUser } from 'types/authTypes';
+import { axiosError, ErrorStatusAndMessage } from 'redux/errorHandlingTypes/rejectErrorTypes';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
@@ -9,7 +11,7 @@ axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 // Utility to remove JWT
 
 const token = {
-  set(token) {
+  set(token: string) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
@@ -17,7 +19,7 @@ const token = {
   },
 };
 
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<IEnterInPayload, IEnterDataForRegistration, { rejectValue: ErrorStatusAndMessage }>(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
@@ -25,31 +27,33 @@ export const registerUser = createAsyncThunk(
       // После успешной регистрации добавляем токен
       token.set(responce.data.token);
       toast.success(`Registration was successful`);
+      console.log(responce.data);
       return responce.data;
     } catch (error) {
       toast.error('Incorrect data for registration, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      throw thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );
 
-export const logInUser = createAsyncThunk(
+export const logInUser = createAsyncThunk<IEnterInPayload, IEnterData, { rejectValue: ErrorStatusAndMessage }>(
   'auth/logIn',
   async (credentials, thunkAPI) => {
     try {
-      const responce = await axios.post('/users/login', credentials);
+      const responce = await axios.post('/users/lo', credentials);
       // После успешной logIn добавляем токен
       token.set(responce.data.token);
       toast.success(`Welcome back to your contact book`);
       return responce.data;
     } catch (error) {
+      console.log(error)
       toast.error('Incorrect password or email, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      throw thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );
 
-export const logOutUser = createAsyncThunk(
+export const logOutUser = createAsyncThunk<void, void, { rejectValue: ErrorStatusAndMessage }>(
   'auth/logOut',
   async (_, thunkAPI) => {
     try {
@@ -59,28 +63,30 @@ export const logOutUser = createAsyncThunk(
       toast.success(`You have successfully logged out of your account`);
     } catch (error) {
       toast.error('Something goes wrong, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      throw thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );
 
-export const refreshUser = createAsyncThunk(
+export const refreshUser = createAsyncThunk<IUser, void, { rejectValue: ErrorStatusAndMessage }>(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    console.log(state);
-    const savedToken = state.auth.token;
+    // @
+    const state: any = thunkAPI.getState();
+      const savedToken = state.auth.token;
+    
     if (savedToken === null) {
-      return thunkAPI.rejectWithValue('Can`t fetch with current user ^_^');
+      throw thunkAPI.rejectWithValue({message: 'Can`t fetch with current user ^_^'});
     }
+      
     try {
       token.set(savedToken);
       const responce = await axios.get('/users/current');
-
+      console.log(responce.data);
       return responce.data;
     } catch (error) {
       toast.error('Something goes wrong, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      throw thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );

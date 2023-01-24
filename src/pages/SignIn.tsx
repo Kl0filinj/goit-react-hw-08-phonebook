@@ -11,22 +11,19 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { logInUser } from 'redux/auth/auth-operations';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'redux/hooks';
+import { InputEventType, SubmitFormEventType } from 'types/commonTypes';
+// import { useDispatch } from 'react-redux';
 
-// import { Field, Form, Formik, ErrorMessage } from 'formik';
-// import * as Yup from 'yup';
-
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onLogInSubmit = evt => {
+  const onLogInSubmit = (evt: SubmitFormEventType) => {
     evt.preventDefault();
     dispatch(logInUser({ email, password }));
-    // setEmail('');
-    // setPassword('');
   };
 
   return (
@@ -47,7 +44,7 @@ const SignIn = () => {
           <Input
             type="email"
             value={email}
-            onChange={evt => setEmail(evt.target.value)}
+            onChange={(evt: InputEventType) => setEmail(evt.target.value)}
           />
           <FormHelperText>For example: sadadada@mail.com</FormHelperText>
         </FormControl>
@@ -56,7 +53,7 @@ const SignIn = () => {
           <Input
             type="password"
             value={password}
-            onChange={evt => setPassword(evt.target.value)}
+            onChange={(evt: InputEventType) => setPassword(evt.target.value)}
           />
           <FormHelperText>We'll never share your password.</FormHelperText>
         </FormControl>

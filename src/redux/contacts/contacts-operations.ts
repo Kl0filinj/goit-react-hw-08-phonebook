@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { IContact, INewContact } from './contacts-slice';
+import { axiosError, ErrorStatusAndMessage } from 'redux/errorHandlingTypes/rejectErrorTypes';
 
-export const fetchAllContacts = createAsyncThunk(
+export const fetchAllContacts = createAsyncThunk<IContact, void, { rejectValue: ErrorStatusAndMessage }>(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
     try {
@@ -10,12 +12,12 @@ export const fetchAllContacts = createAsyncThunk(
       return response.data;
     } catch (error) {
       toast.error('Something goes wrong, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );
 
-export const addContact = createAsyncThunk(
+export const addContact = createAsyncThunk<IContact, INewContact, { rejectValue: ErrorStatusAndMessage }>(
   'contacts/add',
   async ({ name, number }, thunkAPI) => {
     try {
@@ -24,12 +26,12 @@ export const addContact = createAsyncThunk(
       return response.data;
     } catch (error) {
       toast.error('We couldn`t add a contact, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );
 
-export const deleteContact = createAsyncThunk(
+export const deleteContact = createAsyncThunk<string, string, { rejectValue: ErrorStatusAndMessage }>(
   'contacts/delete',
   async (id, thunkAPI) => {
     try {
@@ -38,12 +40,12 @@ export const deleteContact = createAsyncThunk(
       return response.data;
     } catch (error) {
       toast.error('We couldn`t delete a contact, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );
 
-export const updateContact = createAsyncThunk(
+export const updateContact = createAsyncThunk<IContact, IContact, { rejectValue: ErrorStatusAndMessage }>(
   'contacts/update',
   async ({ name, number, id }, thunkAPI) => {
     try {
@@ -52,7 +54,7 @@ export const updateContact = createAsyncThunk(
       return response.data;
     } catch (error) {
       toast.error('We couldn`t update a contact, try again');
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(axiosError(error));
     }
   }
 );

@@ -16,16 +16,24 @@ import {
 import { updateContact } from 'redux/contacts/contacts-operations';
 import { EditIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'redux/hooks';
+// import { useDispatch } from 'react-redux';
+import { INewContact } from 'redux/contacts/contacts-slice';
+import { InputEventType, SubmitFormEventType } from 'types/commonTypes';
 
-const ChangeModal = ({ contactId, userData }) => {
+interface ChangeModalProps {
+  contactId: string;
+  userData: INewContact;
+}
+
+const ChangeModal: React.FC<ChangeModalProps> = ({ contactId, userData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newName, setNewName] = useState(() => userData.name);
   const [newNumber, setNewNumber] = useState(() => userData.number);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleConatctChange = evt => {
+  const handleConatctChange = (evt: SubmitFormEventType) => {
     evt.preventDefault();
     dispatch(
       updateContact({ name: newName, number: newNumber, id: contactId })
@@ -52,7 +60,9 @@ const ChangeModal = ({ contactId, userData }) => {
                   value={newNumber}
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                  onChange={evt => setNewNumber(evt.target.value)}
+                  onChange={(evt: InputEventType) =>
+                    setNewNumber(evt.target.value)
+                  }
                 />
                 <FormHelperText>For example: +380 95 122 0366</FormHelperText>
               </FormControl>
@@ -63,7 +73,9 @@ const ChangeModal = ({ contactId, userData }) => {
                   value={newName}
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                   title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer"
-                  onChange={evt => setNewName(evt.target.value)}
+                  onChange={(evt: InputEventType) =>
+                    setNewName(evt.target.value)
+                  }
                 />
                 <FormHelperText>For example: Amalia Rorshekh</FormHelperText>
               </FormControl>

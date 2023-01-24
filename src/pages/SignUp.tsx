@@ -11,24 +11,20 @@ import {
 } from '@chakra-ui/react';
 import { registerUser } from 'redux/auth/auth-operations';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'redux/hooks';
+import { SubmitFormEventType, InputEventType } from 'types/commonTypes';
+// import { useDispatch } from 'react-redux';
 
-// import { Field, Form, Formik, ErrorMessage } from 'formik';
-// import * as Yup from 'yup';
-
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const onRegisterSubmit = evt => {
+  const onRegisterSubmit = (evt: SubmitFormEventType) => {
     evt.preventDefault();
     dispatch(registerUser({ name: userName, email, password }));
-    // setUserName('');
-    // setEmail('');
-    // setPassword('');
   };
 
   return (
@@ -49,7 +45,7 @@ const SignUp = () => {
           <Input
             type="text"
             value={userName}
-            onChange={evt => setUserName(evt.target.value)}
+            onChange={(evt: InputEventType) => setUserName(evt.target.value)}
           />
           <FormHelperText>For example: Adrian, Jacob Mercer</FormHelperText>
         </FormControl>
@@ -58,7 +54,7 @@ const SignUp = () => {
           <Input
             type="email"
             value={email}
-            onChange={evt => setEmail(evt.target.value)}
+            onChange={(evt: InputEventType) => setEmail(evt.target.value)}
           />
           <FormHelperText>We'll never share your email.</FormHelperText>
         </FormControl>
@@ -67,7 +63,7 @@ const SignUp = () => {
           <Input
             type="password"
             value={password}
-            onChange={evt => setPassword(evt.target.value)}
+            onChange={(evt: InputEventType) => setPassword(evt.target.value)}
           />
           <FormHelperText>
             Password must contains min 7 charecters

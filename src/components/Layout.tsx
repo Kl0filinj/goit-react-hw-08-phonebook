@@ -2,13 +2,16 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { Flex, Spacer, Button, Text, Avatar, Box } from '@chakra-ui/react';
 import { logOutUser } from '../redux/auth/auth-operations';
 import { selectIsLoggedIn, selectUser } from 'redux/auth/auth-selectors';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+
 import { Suspense } from 'react';
 
-const Layout = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
+const Layout: React.FC = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <Flex as="header" bg="gray.700" color="#262626" p="6">
@@ -41,14 +44,13 @@ const Layout = () => {
             </Button>
           </>
         ) : (
-          // <Box display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
             <Avatar
               mr="2"
               w="8"
               h="8"
               src="https://bit.ly/broken-link"
-              name={user.name}
+              name={user.name!}
             />
             <Text
               fontSize="xl"
@@ -67,10 +69,8 @@ const Layout = () => {
               onClick={() => dispatch(logOutUser())}
             >
               Sign Out
-              {/* <NavLink to="registration">Sign Out</NavLink> */}
             </Button>
           </Box>
-          // </Box>
         )}
       </Flex>
       <Suspense fallback={null}>
