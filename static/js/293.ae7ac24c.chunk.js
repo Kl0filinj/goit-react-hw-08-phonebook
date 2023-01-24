@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[293],{4293:function(e,t,a){a.r(t);a(2791);var o=a(9712),c=a(184);t.default=function(){return(0,c.jsx)(o.M5,{as:"main",bg:"blue.800",color:"white",py:"16",children:(0,c.jsx)(o.X6,{as:"h1",fontFamily:"heading",children:"Welcome back to Contact Book !"})})}}}]);
+//# sourceMappingURL=293.ae7ac24c.chunk.js.map
