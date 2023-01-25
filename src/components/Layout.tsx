@@ -16,7 +16,7 @@ const Layout: React.FC = () => {
     <>
       <Flex as="header" bg="gray.700" color="#262626" p="6">
         <Button colorScheme="blackAlpha" color="white" variant="ghost" ml="2">
-          <NavLink to="/goit-react-hw-08-phonebook">Home</NavLink>
+          <NavLink to="/">Home</NavLink>
         </Button>
         {isLoggedIn && (
           <Button colorScheme="blackAlpha" color="white" variant="ghost" ml="2">

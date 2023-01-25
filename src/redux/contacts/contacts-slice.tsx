@@ -27,7 +27,6 @@ const contactsState: IContactsStateWrapper = {
 };
 
 const handlePending = (state: WritableDraft<IContactsStateWrapper>) => {
-  console.log('It`s from state ', state);
   state.contacts.isLoading = true;
 };
 
@@ -80,7 +79,6 @@ export const contactsSlice = createSlice({
       const index = state.contacts.items.findIndex(
         task => task.id === action.payload.id
       );
-      console.log(action.payload);
       const id = action.payload.id;
       const name = action.payload.name;
       const number = action.payload.number;
