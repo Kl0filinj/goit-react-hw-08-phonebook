@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useEffect, lazy } from 'react';
 import { refreshUser } from 'redux/auth/auth-operations';
 import PrivateRoute from './PrivateRoute';
@@ -15,9 +16,8 @@ const SignIn = lazy(() => import('pages/SignIn'));
 const Contacts = lazy(() => import('pages/Contacts'));
 
 export const App = () => {
-  const isLoading = useSelector(selectIsRefreshing);
-
-  const dispatch = useDispatch();
+  const isLoading = useAppSelector(selectIsRefreshing);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
@@ -26,38 +26,33 @@ export const App = () => {
     <>
       {!isLoading && (
         <>
-          {' '}
           <Routes>
-            <Route path="goit-react-hw-08-phonebook/" element={<Layout />}>
+            <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route
                 path="login"
                 element={
-                  <PublicRoute
-                    redirectTo="/goit-react-hw-08-phonebook/contacts"
-                    component={<SignIn />}
-                  />
+                  <PublicRoute redirectTo="/contacts">
+                    <SignIn />
+                  </PublicRoute>
                 }
               />
               <Route
                 path="registration"
                 element={
-                  <PublicRoute
-                    redirectTo="/goit-react-hw-08-phonebook/contacts"
-                    component={<SignUp />}
-                  />
+                  <PublicRoute redirectTo="/contacts">
+                    <SignUp />
+                  </PublicRoute>
                 }
               />
               <Route
                 path="contacts"
                 element={
-                  <PrivateRoute
-                    redirectTo="/goit-react-hw-08-phonebook/registration"
-                    component={<Contacts />}
-                  />
+                  <PrivateRoute redirectTo="/registration">
+                    <Contacts />
+                  </PrivateRoute>
                 }
               />
-
               <Route path="*" element={<h1>Page Not Found 🥶</h1>} />
             </Route>
           </Routes>

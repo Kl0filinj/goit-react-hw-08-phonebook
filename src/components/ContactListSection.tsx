@@ -60,10 +60,9 @@ const ContactListSection: React.FC = () => {
         ) : (
           <ul>
             {visibleContacts.map(({ name, number, id }) => (
-              <Skeleton fadeDuration={2} isLoaded={!isLoading}>
+              <Skeleton fadeDuration={2} isLoaded={!isLoading} key={id}>
                 <Box
                   as="li"
-                  key={id}
                   display="flex"
                   justifyContent="space-between"
                   alignItems="baseline"

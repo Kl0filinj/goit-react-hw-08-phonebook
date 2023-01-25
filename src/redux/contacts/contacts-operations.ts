@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { IContact, INewContact } from './contacts-slice';
+import { IContact, INewContact } from 'types/contactsTypes';
 import { axiosError, ErrorStatusAndMessage } from 'redux/errorHandlingTypes/rejectErrorTypes';
 
 export const fetchAllContacts = createAsyncThunk<IContact, void, { rejectValue: ErrorStatusAndMessage }>(

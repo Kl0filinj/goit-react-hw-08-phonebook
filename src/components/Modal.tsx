@@ -18,7 +18,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 // import { useDispatch } from 'react-redux';
-import { INewContact } from 'redux/contacts/contacts-slice';
+import { INewContact } from 'types/contactsTypes';
 import { InputEventType, SubmitFormEventType } from 'types/commonTypes';
 
 interface ChangeModalProps {

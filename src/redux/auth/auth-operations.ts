@@ -27,7 +27,6 @@ export const registerUser = createAsyncThunk<IEnterInPayload, IEnterDataForRegis
       // После успешной регистрации добавляем токен
       token.set(responce.data.token);
       toast.success(`Registration was successful`);
-      console.log(responce.data);
       return responce.data;
     } catch (error) {
       toast.error('Incorrect data for registration, try again');
@@ -82,7 +81,6 @@ export const refreshUser = createAsyncThunk<IUser, void, { rejectValue: ErrorSta
     try {
       token.set(savedToken);
       const responce = await axios.get('/users/current');
-      console.log(responce.data);
       return responce.data;
     } catch (error) {
       toast.error('Something goes wrong, try again');

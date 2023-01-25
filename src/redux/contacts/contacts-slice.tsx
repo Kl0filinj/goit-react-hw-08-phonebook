@@ -1,22 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer/dist/internal';
+import { IContact } from 'types/contactsTypes';
 import {
   fetchAllContacts,
   addContact,
   deleteContact,
   updateContact,
 } from './contacts-operations';
-
-export interface IContact {
-  id: string;
-  name: string;
-  number: string;
-}
-
-export interface INewContact {
-  name: string;
-  number: string;
-}
 
 interface IContactsState {
   items: IContact[];
