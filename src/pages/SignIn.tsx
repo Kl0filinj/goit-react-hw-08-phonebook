@@ -13,7 +13,6 @@ import { useState } from 'react';
 import { logInUser } from 'redux/auth/auth-operations';
 import { useAppDispatch } from 'redux/hooks';
 import { InputEventType, SubmitFormEventType } from 'types/commonTypes';
-// import { useDispatch } from 'react-redux';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');

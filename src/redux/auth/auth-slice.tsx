@@ -66,6 +66,4 @@ const persistConfig = {
   whitelist: ['token'],
 };
 
-// export const { addTask, deleteTask } = authSlice.actions;
-// export const authReducer = authSlice.reducer;
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);

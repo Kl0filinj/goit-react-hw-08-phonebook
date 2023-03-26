@@ -56,13 +56,11 @@ export const contactsSlice = createSlice({
       state.contacts.items = action.payload;
     },
     [fetchAllContacts.rejected.type]: handleRejected,
-    // [addContact.pending]: handlePending,
     [addContact.fulfilled.type](state, action: PayloadAction<IContact>) {
       normalizeState(state);
       state.contacts.items.push(action.payload);
     },
     [addContact.rejected.type]: handleRejected,
-    // [deleteContact.pending]: handlePending,
 
     [deleteContact.fulfilled.type](state, action) {
       normalizeState(state);
@@ -72,7 +70,6 @@ export const contactsSlice = createSlice({
       state.contacts.items.splice(index, 1);
     },
     [deleteContact.rejected.type]: handleRejected,
-    // [updateContact.pending]: handlePending,
 
     [updateContact.fulfilled.type](state, action) {
       normalizeState(state);
@@ -89,5 +86,4 @@ export const contactsSlice = createSlice({
   reducers: {},
 });
 
-// export const { addTask, deleteTask } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

@@ -13,7 +13,6 @@ import { registerUser } from 'redux/auth/auth-operations';
 import { useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { SubmitFormEventType, InputEventType } from 'types/commonTypes';
-// import { useDispatch } from 'react-redux';
 
 const SignUp: React.FC = () => {
   const [userName, setUserName] = useState('');

@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useEffect, lazy } from 'react';
 import { refreshUser } from 'redux/auth/auth-operations';

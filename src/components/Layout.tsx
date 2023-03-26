@@ -2,7 +2,6 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { Flex, Spacer, Button, Text, Avatar, Box } from '@chakra-ui/react';
 import { logOutUser } from '../redux/auth/auth-operations';
 import { selectIsLoggedIn, selectUser } from 'redux/auth/auth-selectors';
-// import { useDispatch, useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 import { Suspense } from 'react';

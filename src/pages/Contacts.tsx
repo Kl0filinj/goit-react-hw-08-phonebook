@@ -3,7 +3,6 @@ import ContactListSection from 'components/ContactListSection';
 import { Container, Heading } from '@chakra-ui/react';
 import { fetchAllContacts } from 'redux/contacts/contacts-operations';
 import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
 import { useAppDispatch } from 'redux/hooks';
 
 const Contacts: React.FC = () => {

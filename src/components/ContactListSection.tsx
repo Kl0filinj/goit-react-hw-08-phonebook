@@ -6,7 +6,6 @@ import { selectContacts } from 'redux/contacts/contacts-selectors';
 import { selectLoadingState } from 'redux/contacts/contacts-selectors';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-// import { useDispatch, useSelector } from 'react-redux';
 
 const ContactListSection: React.FC = () => {
   const [filter, setFilter] = useState('');

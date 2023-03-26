@@ -12,7 +12,6 @@ import { addContact } from 'redux/contacts/contacts-operations';
 import { useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { InputEventType, SubmitFormEventType } from 'types/commonTypes';
-// import { useDispatch } from 'react-redux';
 
 const AddContactSection: React.FC = () => {
   const [phone, setPhone] = useState('');
